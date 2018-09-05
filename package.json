@@ -1,0 +1,20 @@
+{
+  "name": "klsudoku",
+  "version": "1.0.0",
+  "description": "Sudoku generator and solver based on Knuth's DLX method, implement with C++， N-API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sudoku",
+    "klsudoku",
+    "kunlun",
+    "dlx"
+  ],
+  "author": "ttylikl",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^1.4.0"
+  }
+}
