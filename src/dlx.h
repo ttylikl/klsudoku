@@ -2,6 +2,7 @@
 #define __INCLUDE_DLX_H__
 #include <string>
 #include <stdio.h>
+#include <string.h>
 #include <sys/time.h>
 
 using namespace std;
@@ -91,7 +92,7 @@ private:
 		if(head.right==&head)
 			return true;
 		node*t,*tt;
-		int min=INF,tc;
+		int min=INF,tc=0;
 		for(t=head.right;t!=&head;t=t->right)
 		{
 			if(cnt[t->c]<min)
