@@ -133,52 +133,7 @@ Solver::Solver()
 
 const char *Solver::getSolverName(EnumSolver solver)
 {
-	/*
-	enum EnumSolver { S_Manual, S_Guess, 
-	S_NakedSingleNumber, S_HiddenSingleNumber, 
-	S_IntersectionRemoval, 
-	S_HiddenPair, S_HiddenTriplet, S_HiddenQuad, 
-	S_NakedPair, S_NakedTriplet, S_NakedQuad,
-	S_XWing, S_XYWing, S_XYZWing,
-	S_SwordFish, S_JellyFish,
-	S_WWing,
-	S_UniqueRectangle1, S_UniqueRectangle2, S_UniqueRectangle3, S_UniqueRectangle4, S_UniqueRectangle5, S_UniqueRectangle6, S_UniqueRectangle7, 
-	S_XChain, S_XYChain, S_ForcingChain, 
-	S_BUG1
-	};
-	*/
-	switch(solver)
-	{
-	case S_Guess: return "Guess";
-	case S_Manual: return "Manual";
-	case S_HiddenSingleNumber: return "HiddenSingleNumber";
-	case S_NakedSingleNumber: return "NakedSingleNumber";
-	case S_IntersectionRemoval: return "IntersectionRemoval";
-	case S_HiddenPair: return "HiddenPair";
-	case S_HiddenTriplet: return "HiddenTriplet";
-	case S_HiddenQuad: return "HiddenQuad";
-	case S_NakedPair: return "NakedPair";
-	case S_NakedTriplet: return "NakedTriplet";
-	case S_NakedQuad: return "NakedQuad";
-	case S_XWing: return "X-Wing";
-	case S_XYWing: return "XY-Wing";
-	case S_XYZWing: return "XYZ-Wing";
-	case S_SwordFish: return "SwordFish";
-	case S_JellyFish: return "JellyFish";
-	case S_WWing: return "W-Wing";
-	case S_UniqueRectangle1: return "UniqueRectangle1";
-	case S_UniqueRectangle2: return "UniqueRectangle2";
-	case S_UniqueRectangle3: return "UniqueRectangle3";
-	case S_UniqueRectangle4: return "UniqueRectangle4";
-	case S_UniqueRectangle5: return "UniqueRectangle5";
-	case S_UniqueRectangle6: return "UniqueRectangle6";
-	case S_UniqueRectangle7: return "UniqueRectangle7";
-	case S_XChain: return "X-Chain";
-	case S_XYChain: return "XY-Chain";
-	case S_ForcingChain: return "Forcing-Chain";
-	case S_BUG1: return "Bug+1";
-	default: return "Unknown";
-	}
+	return toSolverName(solver);
 }
 
 int Solver::executeSActions(Puzzle &pz,vector<SAction> &acts)

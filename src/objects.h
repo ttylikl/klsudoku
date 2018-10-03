@@ -248,6 +248,8 @@ public:
 	bool link(int x,int y,int cand,bool isStrongLink);
 };
 
+const char* toSolverName(EnumSolver solver);
+
 class Solver
 {
 private:
