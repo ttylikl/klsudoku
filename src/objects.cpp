@@ -107,6 +107,113 @@ string Operation::dumps(){
 	return buffer.GetString();
 }
 
+
+static std::string& implode(const std::vector<std::string>& elems, char delim, std::string& s)
+{
+    for (std::vector<std::string>::const_iterator ii = elems.begin(); ii != elems.end(); ++ii)
+    {
+        s += (*ii);
+        if ( ii + 1 != elems.end() ) {
+            s += delim;
+        }
+    }
+
+    return s;
+}
+
+static std::string implode(const std::vector<std::string>& elems, char delim)
+{
+    std::string s;
+    return implode(elems, delim, s);
+}
+
+static vector<string> toStringVector(const vector<int>& elems) {
+	vector<string> vs;
+	char nbuf[100];
+	for (std::vector<int>::const_iterator ii = elems.begin(); ii != elems.end(); ++ii){
+		sprintf(nbuf, "%d", *ii);
+		vs.push_back(nbuf);
+	}
+	return vs;
+}
+
+static vector<string> toStringVector(const vector<SPoint>& elems) {
+	vector<string> vs;
+	for (std::vector<SPoint>::const_iterator ii = elems.begin(); ii != elems.end(); ++ii){
+		SPoint pt = *ii;
+		string s = pt.dumps();
+		vs.push_back(s);
+	}
+	return vs;
+}
+static vector<string> toStringVector(const vector<Operation>& elems) {
+	vector<string> vs;
+	for (std::vector<Operation>::const_iterator ii = elems.begin(); ii != elems.end(); ++ii){
+		Operation pt = *ii;
+		string s = pt.dumps();
+		vs.push_back(s);
+	}
+	return vs;
+}
+
+static vector<string> toStringVector(const vector<CellSet *>& elems) {
+	vector<string> vs;
+	vector<CellSet *>::const_iterator it=elems.begin();
+	while(it!=elems.end())
+	{
+		CellSet *cellset = *it++;
+		char tmp[32];
+		char buf[100];
+		sprintf(tmp,"<%s>", cellset->getName());
+		sprintf(buf,"{\"name\":\"%s\", \"type\":%d, \"id\":%d}", tmp, cellset->getType(), cellset->getID());
+        vs.push_back(buf);
+	}
+	return vs;
+}
+
+static string toString(int n) {
+	char buf[32];
+	sprintf(buf,"%d", n);
+	return buf;
+}
+/*
+
+	//because: cellsets, cells/SPoints, numbers
+	//operation: cells/SPoints, numbers,actype
+	vector<CellSet *> cellsets;
+	vector<int> nums;
+	vector<SPoint> pts;
+	vector< vector<int> > chain;
+*/
+
+string SAction::dumps() {
+	// string numstr = implode(toStringVector(nums), ',');
+	// numstr = string("[").append(numstr).append("]");
+	// string ptstr = implode(toStringVector(pts),',');
+	vector<string> chains;
+	for(int i=0;i<chain.size();i++){
+		vector<int> vi = chain.at(0);
+		string s = implode(toStringVector(vi), ',');
+		chains.push_back(s);
+	}
+	// printf("%d numstr: %s\n", nums.size(), numstr.c_str());
+	// printf("%d ptstr: %s\n", pts.size(), ptstr.c_str());
+	// printf("chainsize:%d\n", chain.size());
+	// printf("%d chains:%s\n", chain.size(), implode(chains, ',').c_str());
+	// printf("cellsets size:%d dumps:%s\n", cellsets.size(), implode(toStringVector(cellsets), ',').c_str());
+	// printf("operations size:%d operation: %s\n", ops.size(), implode(toStringVector(ops), ',').c_str());
+	string ret="{";
+	ret.append("\"solver\":").append(toString(nSolver)).append(","); // {"solver":0,
+	ret.append("\"ops\":[").append(implode(toStringVector(ops), ',')).append("],");
+	ret.append("\"nums\":[").append(implode(toStringVector(nums), ',')).append("],");
+	ret.append("\"pts\":[").append(implode(toStringVector(pts), ',')).append("],");
+	ret.append("\"cellsets\":[").append(implode(toStringVector(cellsets), ',')).append("],");
+	ret.append("\"chains\":[").append(implode(chains, ',')).append("]");
+	ret.append("}");
+	return ret;
+}
+
+
 Cell::Cell(int cx,int cy)
     : _xy(cx,cy),_mark(CBLACK),_bDirty(1)
 {
@@ -263,6 +370,7 @@ EnumStatus Cell::setCandStatus(int cand,EnumStatus st)
             }
         }
     }
+	// plog("cand=%d", cand);
     int idx=num2cord(cand);
     EnumStatus ret=_cands[idx];
     _cands[idx]=st;
@@ -271,6 +379,7 @@ EnumStatus Cell::setCandStatus(int cand,EnumStatus st)
 
 EnumStatus Cell::getCandStatus(int cand)
 {
+	// plog("cand=%d", cand);
     int cc=num2cord(cand);
     if(isValidCord(cc) && _num==NUM_NONE)
     {
@@ -783,6 +892,7 @@ int Puzzle::isDone()
     {
         int n=_cells[i]->getValue();
         if(NUM_NONE==n) return 0;
+		// plog("cand=%d", n);
         tags[num2cord(n)]++;
     }
     for(unsigned int j=0;j<NUM;j++)

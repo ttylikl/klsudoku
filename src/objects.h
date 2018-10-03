@@ -25,6 +25,11 @@ public:
         setxy(x,y);
     }
 
+	string dumps() {
+		char buf[100];
+		sprintf(buf,"{\"x\":%d,\"y\":%d}", _x+1, _y+1);
+		return buf;
+	}
 
 	bool operator ==(const SPoint &pt) const
 	{
@@ -52,7 +57,7 @@ public:
 	{
 		if (*_name == 0)
 		{
-			sprintf(_name, "%d,%d", _y + 1, _x + 1); //只适合坐标，不适合行列
+			sprintf(_name, "%d,%d", _y + 1, _x + 1); 
 		}
 		return _name;
 	}
@@ -187,8 +192,11 @@ class SAction
 public:
 	SAction(EnumSolver s):nSolver(s){}
 	SAction(EnumSolver s,Operation op):nSolver(s){ops.push_back(op);}
+	
 	EnumSolver nSolver;
 	vector<Operation> ops;
+	
+	string dumps();
 
 	//because: cellsets, cells/SPoints, numbers
 	//operation: cells/SPoints, numbers,actype

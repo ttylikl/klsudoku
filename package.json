@@ -1,6 +1,6 @@
 {
   "name": "klsudoku",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "homepage": "https://github.com/ttylikl/klsudoku",
   "description": "Sudoku generator and solver based on Knuth's DLX method, implement with C++， N-API.",
   "main": "index.js",

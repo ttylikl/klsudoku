@@ -16,7 +16,6 @@
 #include "objects.h"
 #include "dlx.h"
 #include "funcs.h" 
-#include "funcs_temp.h"
 
 
 #endif

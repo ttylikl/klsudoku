@@ -128,6 +128,7 @@ Solver::Solver()
 		}
 #endif
 	}
+	m_curNum = 1; // 缺省值
 };
 
 const char *Solver::getSolverName(EnumSolver solver)
