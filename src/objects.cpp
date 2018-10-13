@@ -702,7 +702,7 @@ string Puzzle::getOriginal()
 }
 
 
-int Puzzle::loads(string str,string scur)
+int Puzzle::loads(string str,string scur, string strallcands)
 {
     const char *sz=str.c_str();
     const char *szc=scur.c_str();
@@ -714,6 +714,36 @@ int Puzzle::loads(string str,string scur)
 	{
         _cells[i]->reset();
 		_cells[i]->setOriginal(0);
+	}
+
+	char candstr[900]="";
+	strcpy(candstr, strallcands.c_str());
+	char * semi = candstr;
+	vector<vector<int>> allcands;
+	for(unsigned int i=0;i<81;i++){
+		char *tail = strchr(semi, ';');
+		if(tail){
+			*tail=0;
+		}
+		vector<int> cands;
+		for(unsigned int j=0;j<strlen(semi);j++){
+			if(semi[j] == ',') continue; // skip comma
+			unsigned int cand = semi[j] - '1' + 1;
+			cands.push_back(cand);
+		}
+		allcands.push_back(cands);
+		if(!tail) {
+			// no more semicolon !
+			break;
+		}
+		semi= tail +1;
+	}
+	for(unsigned int i=0;i<allcands.size();i++){
+		vector<int> cands = allcands.at(i);
+		for(unsigned int j=0;j<cands.size();j++){
+			printf("%d", cands.at(j));
+		}
+		printf("\n");
 	}
 
 	//20140910
@@ -1002,62 +1032,7 @@ bool SNode::link(int x,int y, int cand,bool isStrongLink)
 	}
 	return true;
 }
-            
-NetAgent* NetAgent::_instance=NULL;
 
-NetAgent* NetAgent::getInstance()
-{
-	if(!_instance)
-	{
-		_instance=new NetAgent();
-		_instance->init();
-	}
-	return _instance;
-}
-
-void NetAgent::init()
-{
-	_id=getMacAddress();
-	_sock=create_multicast_socket("255.255.255.255",_port);
-}
-
-NetAgent::NetAgent():
-	_port(2013),_ip("255.255.255.255")
-{ 
-}
-
-int NetAgent::send(string buf)
-{
-	struct sockaddr_in addr;
-	memset(&addr,0,sizeof(addr));
-	addr.sin_family=AF_INET;
-	addr.sin_addr.s_addr=inet_addr(_ip); /* N.B.: differs from sender */
-	addr.sin_port=htons(_port);
-	int ret = sendto(_sock, buf.c_str(), buf.length() ,0,(struct sockaddr *)&addr, sizeof(addr));
-	return ret;
-}
-
-string NetAgent::recv()
-{
-	char buf[100000];
-	struct sockaddr addr;
-	memset(&addr,0,sizeof(addr));
-#ifdef __APPLE__
-	socklen_t len=sizeof(addr);
-	int ret=recvfrom(_sock,(void*)buf,sizeof(buf),0,(struct sockaddr *)&addr,&len);
-#else
-	socklen_t len=sizeof(addr);
-	int ret=recvfrom(_sock,buf,sizeof(buf),0,(struct sockaddr *)&addr,&len);
-#endif
-	if(ret>0)
-		return buf;
-	return "";
-}
-
-string NetAgent::getID() 
-{
-	return _id;
-}
 
 SPoint xy2rc(const SPoint &xy)
 {

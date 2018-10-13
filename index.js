@@ -1,2 +1,2 @@
-var dlx = require('./build/Release/dlx');
-module.exports = dlx;
+var klsudoku = require('./build/Release/klsudoku');
+module.exports = klsudoku;

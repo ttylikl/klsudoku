@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "dlx",
+      "target_name": "klsudoku",
       "sources": [ 
         "./src/dlx.cc",
         "./src/solver.cpp",

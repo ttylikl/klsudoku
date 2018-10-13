@@ -153,7 +153,7 @@ private:
     vector<CellSet*> _boxs;
     vector<CellSet*> _sets; //convience for set: _rows, _cols and _boxs
 public:
-    int loads(string str,string strcur=""); //Load puzzle from string
+    int loads(string str,string strcur="",string strallcands=""); //Load puzzle from string
     string dumps(int tp=FMT_LINE);
 	string dumps_original(int tp=FMT_LINE);
 	string getOriginal();
@@ -288,23 +288,6 @@ public:
 	int tryXChain(Puzzle &pz,vector<SAction> &acts);
 	int tryXYChain(Puzzle &pz,vector<SAction> &acts);
 	int tryForcingChain(Puzzle &pz,vector<SAction> &acts);
-};
-
-class NetAgent
-{
-private:
-	static NetAgent *_instance;
-	NetAgent();
-	void init();
-	string _id;
-	const char *_ip;
-	unsigned int _port;
-	int _sock;
-public:
-	static NetAgent *getInstance();
-	string getID();
-	int send(string buf);
-	string recv();
 };
 
 SPoint xy2rc(const SPoint &xy);

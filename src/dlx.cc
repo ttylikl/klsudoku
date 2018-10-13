@@ -89,8 +89,8 @@ napi_value methodGenerate (napi_env env, napi_callback_info info) {
 
 napi_value methodHints(napi_env env,  napi_callback_info info) {
     napi_status status;
-    size_t argc=3;
-    napi_value argv[3];
+    size_t argc=4;
+    napi_value argv[4];
     status = napi_get_cb_info(env, info, &argc, argv, 0, 0);
     if( status != napi_ok) {
         napi_throw_type_error(env, "111", "Wrong number of arguments");
@@ -115,10 +115,16 @@ napi_value methodHints(napi_env env,  napi_callback_info info) {
         napi_throw_type_error(env, "112", "Can't read arguments");
         return 0; // napi_value 实际上是一个指针，返回空指针表示无返回值
     }
-    printf("arguments:\n%s\n%s\n%d\n", puzzle, curpsz, curnum);
+    char allcands[800]="";
+    status = napi_get_value_string_latin1(env, argv[3], allcands, 9*9*9, &len);
+    if( status != napi_ok) {
+        napi_throw_type_error(env, "112", "Can't read all cands");
+        return 0; // napi_value 实际上是一个指针，返回空指针表示无返回值
+    }
+    printf("arguments:\n%s\n%s\n%d\n%s\n", puzzle, curpsz, curnum, allcands);
     Solver solver;
     Puzzle pz;
-    pz.loads(puzzle, curpsz);
+    pz.loads(puzzle, curpsz, allcands);
     solver.setCurrentNumber(curnum);
     vector<SAction> acts = solver.doSolve(&pz);
     
@@ -140,6 +146,27 @@ napi_value methodHints(napi_env env,  napi_callback_info info) {
     return obj;
 }
 
+napi_value methodSolverName (napi_env env, napi_callback_info info) {
+    napi_status status;
+    size_t argc=1;
+    napi_value argv[1];
+    status = napi_get_cb_info(env, info, &argc, argv, 0, 0);
+    if( status != napi_ok) {
+        napi_throw_type_error(env, "111", "Wrong number of arguments");
+        return 0; // napi_value 实际上是一个指针，返回空指针表示无返回值
+    }
+    int nSolver=256;
+    status = napi_get_value_int32(env, argv[0], &nSolver);
+    if( status != napi_ok) {
+        napi_throw_type_error(env, "112", "Can't read solver value");
+        return 0; // napi_value 实际上是一个指针，返回空指针表示无返回值
+    }
+    const char *szName = toSolverName((EnumSolver)nSolver);
+    napi_value obj;
+    status = napi_create_string_utf8(env, szName, NAPI_AUTO_LENGTH, &obj);
+    return obj;
+}
+
 
 napi_value Init(napi_env env, napi_value exports) {
   napi_status status;
@@ -148,11 +175,13 @@ napi_value Init(napi_env env, napi_value exports) {
   napi_property_descriptor descSolutionCount = { "solutioncount", 0, methodSolutionCount, 0, 0, 0, napi_default, 0 };
   napi_property_descriptor descGenerate = { "generate", 0, methodGenerate, 0, 0, 0, napi_default, 0 };
   napi_property_descriptor descHints = { "gethints", 0, methodHints, 0, 0, 0, napi_default, 0 };
+  napi_property_descriptor descSolverName = { "solvername", 0, methodSolverName, 0, 0, 0, napi_default, 0 };
 
   status = napi_define_properties(env, exports, 1, &descSolve);
   status = napi_define_properties(env, exports, 1, &descSolutionCount);
   status = napi_define_properties(env, exports, 1, &descGenerate);
   status = napi_define_properties(env, exports, 1, &descHints);
+  status = napi_define_properties(env, exports, 1, &descSolverName);
   if (status != napi_ok) return NULL;
   return exports;
 }
