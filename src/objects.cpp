@@ -420,7 +420,7 @@ EnumStatus Cell::setCandStatus(int cand,EnumStatus st)
             }
         }
     }
-	// plog("cand=%d", cand);
+	plog("cand=%d", cand);
     int idx=num2cord(cand);
     EnumStatus ret=_cands[idx];
     _cands[idx]=st;
@@ -429,7 +429,7 @@ EnumStatus Cell::setCandStatus(int cand,EnumStatus st)
 
 EnumStatus Cell::getCandStatus(int cand)
 {
-	// plog("cand=%d", cand);
+	plog("cand=%d", cand);
     int cc=num2cord(cand);
     if(isValidCord(cc) && _num==NUM_NONE)
     {
@@ -831,6 +831,7 @@ int Puzzle::loads(string str,string scur, string strallcands)
 			}
 		}
 	}
+	printf("loads done!\n");
     return 0;
 }
 

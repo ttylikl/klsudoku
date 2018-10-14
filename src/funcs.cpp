@@ -43,12 +43,12 @@ int isValidCord(int cord)
 
 int num2cord(int num)
 {
-    KAssertRet(isValidNum(num),plog("Trying to convert number[%d] to cordinate",num),-1);
+    KAssertRet(isValidNum(num),plog("Trying to convert number[%d] to coordinate",num),-1);
     return num-1;
 }
 int cord2num(int cord)
 {
-    KAssertRet(isValidCord(cord),plog("Trying to convert cordinate[%d] to number",cord),-1);
+    KAssertRet(isValidCord(cord),plog("Trying to convert coordinate[%d] to number",cord),-1);
     return cord+1;
 }
 
