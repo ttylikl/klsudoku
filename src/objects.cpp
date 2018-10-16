@@ -701,6 +701,7 @@ string Puzzle::getOriginal()
 	return _strOriginal;
 }
 
+#define PLOG if(false) plog
 
 int Puzzle::loads(string str,string scur, string strallcands)
 {
@@ -716,6 +717,7 @@ int Puzzle::loads(string str,string scur, string strallcands)
 		_cells[i]->setOriginal(0);
 	}
 	// load all candidates status
+	PLOG("load all candidates!");
 	char candstr[900]="";
 	strcpy(candstr, strallcands.c_str());
 	char * semi = candstr;
@@ -745,6 +747,7 @@ int Puzzle::loads(string str,string scur, string strallcands)
 	// 	}
 	// 	printf("\n");
 	// }
+	PLOG("load all candidates over");
 
 	//20140910
 	//for (int cx = NUMROW-1; cx >=0; cx--)
@@ -807,19 +810,17 @@ int Puzzle::loads(string str,string scur, string strallcands)
 	if(*szc==0)
 		_strOriginal=dumps(FMT_LINE);
 	
+	PLOG("set puzzle candidates status base on all candidates vector");
 	for (int cx = 0; cx<NUMROW; cx++)
 	{
 		vector<Cell*> cells = _cols[cx]->getCells();
 		for (int cy = 0; cy<NUMCOL; cy++)
         {
+			PLOG("cx,cy = %d, %d", cx, cy);
 			Cell *cell=cells[cy];
 			int idx = cx*9 + cy;
+			PLOG("idx=%d allcands.size=%d", idx, allcands.size());
 			vector<int> cands = allcands.at(idx);
-			// for(unsigned int i=0;i<cands.size();i++){
-			// 	int cand = cands.at(i);
-			// 	int st = cell->getCandStatus(cand);
-			// 	printf("cx,cy[%d,%d] cand[%d] status[%d]\n", cx, cy, cand, st);
-			// }
 			for(int cand=1; cand <=9; cand++) {
 				int st = cell->getCandStatus(cand);
 				if(st == ST_NORMAL) {

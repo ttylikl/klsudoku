@@ -16,7 +16,7 @@
 #ifdef _WIN32
 #define PRST( helper ) { nt=GetTickCount(); if(nt-lt) { plog("%s: %d - %d ", #helper, nt - lt, nt - st );  lt=nt; } }
 #else
-#define PRST( helper) 
+#define PRST( helper) {plog("%s", #helper);}
 #endif
 
 void testvv()

@@ -115,8 +115,8 @@ napi_value methodHints(napi_env env,  napi_callback_info info) {
         napi_throw_type_error(env, "112", "Can't read arguments");
         return 0; // napi_value 实际上是一个指针，返回空指针表示无返回值
     }
-    char allcands[800]="";
-    status = napi_get_value_string_latin1(env, argv[3], allcands, 9*9*9, &len);
+    char allcands[2000]="";
+    status = napi_get_value_string_latin1(env, argv[3], allcands, 2000, &len);
     if( status != napi_ok) {
         napi_throw_type_error(env, "112", "Can't read all cands");
         return 0; // napi_value 实际上是一个指针，返回空指针表示无返回值
@@ -125,6 +125,10 @@ napi_value methodHints(napi_env env,  napi_callback_info info) {
     Solver solver;
     Puzzle pz;
     pz.loads(puzzle, curpsz, allcands);
+    printf("Puzzle::loads() done!");
+    if(curnum<1) {
+        curnum = 1;
+    }
     solver.setCurrentNumber(curnum);
     vector<SAction> acts = solver.doSolve(&pz);
     
