@@ -192,7 +192,7 @@ string SAction::dumps() {
 	// string ptstr = implode(toStringVector(pts),',');
 	vector<string> chains;
 	for(int i=0;i<chain.size();i++){
-		vector<int> vi = chain.at(0);
+		vector<int> vi = chain.at(i);
 		string s = implode(toStringVector(vi), ',');
 		chains.push_back(s);
 	}
