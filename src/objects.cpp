@@ -810,23 +810,25 @@ int Puzzle::loads(string str,string scur, string strallcands)
 	if(*szc==0)
 		_strOriginal=dumps(FMT_LINE);
 	
-	PLOG("set puzzle candidates status base on all candidates vector");
-	for (int cx = 0; cx<NUMROW; cx++)
-	{
-		vector<Cell*> cells = _cols[cx]->getCells();
-		for (int cy = 0; cy<NUMCOL; cy++)
-        {
-			PLOG("cx,cy = %d, %d", cx, cy);
-			Cell *cell=cells[cy];
-			int idx = cx*9 + cy;
-			PLOG("idx=%d allcands.size=%d", idx, allcands.size());
-			vector<int> cands = allcands.at(idx);
-			for(int cand=1; cand <=9; cand++) {
-				int st = cell->getCandStatus(cand);
-				if(st == ST_NORMAL) {
-					vector<int>::iterator fi=find(cands.begin(),cands.end(),cand);
-					if(fi == cands.end()){
-						cell->setCandStatus(cand, ST_TAG);
+	PLOG("set puzzle candidates status base on all candidates vector[%d]", allcands.size());
+	if(allcands.size() == 81){
+		for (int cx = 0; cx<NUMROW; cx++)
+		{
+			vector<Cell*> cells = _cols[cx]->getCells();
+			for (int cy = 0; cy<NUMCOL; cy++)
+			{
+				PLOG("cx,cy = %d, %d", cx, cy);
+				Cell *cell=cells[cy];
+				int idx = cx*9 + cy;
+				PLOG("idx=%d allcands.size=%d", idx, allcands.size());
+				vector<int> cands = allcands.at(idx);
+				for(int cand=1; cand <=9; cand++) {
+					int st = cell->getCandStatus(cand);
+					if(st == ST_NORMAL) {
+						vector<int>::iterator fi=find(cands.begin(),cands.end(),cand);
+						if(fi == cands.end()){
+							cell->setCandStatus(cand, ST_TAG);
+						}
 					}
 				}
 			}

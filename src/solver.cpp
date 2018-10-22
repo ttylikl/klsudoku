@@ -345,9 +345,12 @@ int Solver::tryGuess(Puzzle &pz,vector<SAction>&acts)
 	vector<int> cands;
 	Cell *cell=NULL;
 	Puzzle pzResult;
-	pzResult.loads(_szResult.c_str());
+	const char * pszResult = _szResult.c_str();
+	plog("Load result:%s", pszResult);
+	pzResult.loads(pszResult);
 	for(int i=0;i<NUMCOL*NUMROW;i++)
 	{
+		plog("idx[%d] = %d", i, idx[i]);
 		Cell *c=cells[idx[i]];
 		if(c->getValue()!=NUM_NONE)
 			continue;
