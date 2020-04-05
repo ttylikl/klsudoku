@@ -81,4 +81,5 @@ const strpz = '60000045000080900000000000010075000080000000320000090000020001009
 const strcurpsz = strpz;
 
 let ret = klsudoku.gethints(strpz, strcurpsz, 1, strallcands);
-  console.log(ret);
+console.log(ret);
+//{"acts": ['{"solver":3,"solvername":"HiddenSingleNumber","ops":[{"act":0,"st":0,"oldst":0,"color":1,"nums":[9],"pts":["3,1"],"rcands":[]}],"nums":[],"pts":[],"cellsets":[{"name":"<COL1>", "type":0, "id":0}],"chains":[]}'] }

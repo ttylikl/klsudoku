@@ -182,7 +182,7 @@ public:
 	EnumStatus st; // not for all
 	EnumStatus oldst; // not for all
 	EnumColor color;
-	vector<vector<int>> rcands;
+	vector<vector<int> > rcands;
 	void loads(const string & opstr);
 	string dumps();
 };

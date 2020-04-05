@@ -721,7 +721,7 @@ int Puzzle::loads(string str,string scur, string strallcands)
 	char candstr[900]="";
 	strcpy(candstr, strallcands.c_str());
 	char * semi = candstr;
-	vector<vector<int>> allcands;
+	vector<vector<int> > allcands;
 	for(unsigned int i=0;i<81;i++){
 		char *tail = strchr(semi, ';');
 		if(tail){

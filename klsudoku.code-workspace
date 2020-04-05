@@ -6,5 +6,14 @@
 		{
 			"path": "F:\\works\\Python-3.7.4"
 		}
-	]
+	],
+	"settings": {
+		"files.associations": {
+			"*.cjson": "jsonc",
+			"*.wxss": "css",
+			"*.wxs": "javascript",
+			"string": "cpp",
+			"iosfwd": "cpp"
+		}
+	}
 }
