@@ -1,5 +1,6 @@
 import sys
 sys.path.append('./build/lib.macosx-10.9-x86_64-3.7')
+sys.path.append('./build/lib.win-amd64-3.7')
 import klsudoku
 dir(klsudoku)
 (puzzle, solution) = klsudoku.generate()
