@@ -2,20 +2,6 @@
 #include "../nodejs/src/common.h"
 
 static PyObject *
-echoTest(PyObject *self, PyObject *args)
-{
-    const char *command;
-
-    if (!PyArg_ParseTuple(args, "s", &command))
-        return NULL;
-    char *strbuf = (char *)malloc(strlen(command)+100);
-    sprintf(strbuf, "Echo返回：%s", command);
-    PyObject * ret =  PyUnicode_FromString(strbuf);
-    free(strbuf);
-    return ret;
-}
-
-static PyObject *
 pySolve(PyObject *self, PyObject *args)
 {
     const char *pszstr;
@@ -100,7 +86,6 @@ pySoverName(PyObject *self, PyObject *args)
 }
 
 static PyMethodDef test_methods[] = {
-    {"echoTest", echoTest, METH_VARARGS, "Echo args back!"},
     {"solve", pySolve, METH_VARARGS, "Try to solve the sudoku."},
     {"solutioncount", pySolutionCount, METH_VARARGS, "Try to find the solution count of the sudoku."},
     {"generate", pyGenerate, METH_VARARGS, "To generate sudoku random."},
