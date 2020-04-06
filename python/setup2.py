@@ -2,6 +2,9 @@
 from setuptools import setup, Extension
 import os,sys
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 srcdir = "../nodejs/src/".replace("/", os.sep)
 files = os.listdir(srcdir)
 sources = ['klsudoku.cpp']
@@ -19,6 +22,8 @@ setup(
         author_email='ttylikl@gmail.com',  # 作者邮箱
         url='https://github.com/ttylikl/klsudoku/',      # 包的主页
         #packages=['klsudoku'],                 # 包
+        long_description=long_description,
+        long_description_content_type="text/markdown",
         ext_modules=[module1],
 )
 

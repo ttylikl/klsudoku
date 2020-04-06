@@ -9,6 +9,10 @@ Note:
 - C++ compiler needed
 - python 3.7.x recommended
 
+Distribute:
+python setup2.py sdist bdist_wheel
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+
 Install:
 ```
 pip install klsudoku
