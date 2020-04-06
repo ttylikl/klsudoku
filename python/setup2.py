@@ -16,7 +16,7 @@ module1 = Extension('klsudoku', sources=sources)
 
 setup(
         name='klsudoku',     # 包名字
-        version='1.0',   # 包版本
+        version='1.1',   # 包版本
         description='Sudoku solver package.',   # 简单描述
         author='ttylikl',  # 作者
         author_email='ttylikl@gmail.com',  # 作者邮箱
