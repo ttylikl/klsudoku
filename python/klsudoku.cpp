@@ -103,11 +103,6 @@ static struct PyModuleDef spammodule = {
     test_methods
 };
 
-// PyMODINIT_FUNC initklsudoku() 
-// { 
-//  Py_InitModule("klsudoku", test_methods); 
-// }
-
 PyMODINIT_FUNC PyInit_klsudoku(void)
 {
     PyObject *m;
