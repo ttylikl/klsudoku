@@ -2,8 +2,10 @@
 from setuptools import setup, Extension
 import os,sys
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+# with open("README.md", "r") as fh:
+#     long_description = fh.read()
+
+long_description = 'Sudoku generator and solver based on Knuth\'s DLX method, implement with C++ to extend Python.'
 
 srcdir = "../nodejs/src/".replace("/", os.sep)
 files = os.listdir(srcdir)
@@ -23,7 +25,7 @@ setup(
         url='https://github.com/ttylikl/klsudoku/',      # 包的主页
         #packages=['klsudoku'],                 # 包
         long_description=long_description,
-        long_description_content_type="text/markdown",
+        #long_description_content_type="text/markdown",
         ext_modules=[module1],
 )
 
