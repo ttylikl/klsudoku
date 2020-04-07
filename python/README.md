@@ -10,7 +10,7 @@ Note:
 - python 3.7.x recommended
 
 Distribute:
-python setup2.py sdist bdist_wheel
+python setup.py sdist bdist_wheel
 twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 Install:
